@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280,height=720">
+  <title>FX-022｜价位分区与条件逐条累加</title>
+  <script src="assets/gsap.min.js"></script>
+  <script src="data/content.js"></script>
+  <style>
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:400}
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:700}
+
+    .demo-only { display: none !important; }
+
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; background: #101820; }
+    #root { width: 100%; height: 100%; position: relative; overflow: hidden; color: #f6f7f4; font-family:DemoSans,sans-serif; background: radial-gradient(circle at 88% 16%,#293842,transparent 37%),#101820; }
+    #grid { position: absolute; inset: 0; background-image: radial-gradient(#637e82 1px,transparent 1px); background-size: 26px 26px; opacity: .31; }
+    .topline { position: absolute; left: 68px; right: 68px; top: 39px; display: flex; align-items: center; justify-content: space-between; font-size: 15px; letter-spacing: 2px; color: #d1dcdb; }
+    .pill { border: 1px solid #7a9295; border-radius: 100px; padding: 7px 15px; letter-spacing: 1px; }
+    #headline { position: absolute; left: 66px; top: 77px; margin: 0; font-size: 57px; line-height: 1.2; font-weight: 700; }
+    #headline em { font-style: normal; color: #f2cc61; }
+    #subhead { position: absolute; left: 69px; top: 157px; font-size: 20px; color: #c9d8d5; }
+    .rule { position: absolute; left: 68px; right: 68px; top: 207px; height: 1px; background: linear-gradient(90deg,#caa84d,#617982 75%,transparent); }
+    #page-viewport { position: absolute; left: 68px; right: 68px; top: 225px; height: 414px; overflow: hidden; }
+    #pages { position: relative; width: 100%; height: 828px; will-change: transform; }
+    .tier { width: 100%; height: 414px; display: grid; grid-template-columns: 43% 57%; align-items: stretch; padding: 8px 0 13px; }
+    .tier:nth-child(2) { grid-template-columns: 57% 43%; }
+    #page-b { opacity: 0; }
+    .info-col { padding: 13px 28px 0 20px; min-width: 0; }
+    .info-col.right { padding-left: 32px; border-left: 1px solid #667c81; }
+    .product-col { padding: 10px 13px 0 31px; border-left: 1px solid #667c81; }
+    .product-col.left { border-left: 0; padding-left: 4px; padding-right: 31px; }
+    .tier-title { margin: 0; font-size: 55px; line-height: 1.2; font-weight: 700; letter-spacing: 1px; }
+    .tier-sub { color: #f2cc61; font-size: 17px; margin-top: 1px; margin-bottom: 22px; }
+    .condition { display: flex; align-items: center; gap: 10px; min-height: 43px; margin: 8px 0; opacity: 0; }
+    .condition .label { display: inline-flex; align-items: center; border: 1px solid #f2cc61; border-radius: 4px; color: #f6da84; padding: 5px 10px; font-size: 19px; font-weight: 700; white-space: nowrap; }
+    .condition .value { color: #f6f7f4; font-size: 20px; line-height: 1.25; white-space: nowrap; }
+    .condition.last .label { background: #f2cc61; color: #23313a; }
+    .product-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: repeat(2,157px); gap: 13px; }
+    .product-card { height: 157px; min-width: 0; position: relative; overflow: hidden; display: flex; align-items: center; gap: 5px; padding: 9px; background: linear-gradient(145deg,#2d3d47,#1d2c36); border: 1px solid #62787d; border-radius: 14px; box-shadow: inset 0 1px 0 rgba(255,255,255,.11),0 9px 17px rgba(0,0,0,.14); }
+    .product-visual { flex: 0 0 109px; width: 109px; height: 125px; }
+    .price-card { flex: 1 1 auto; background: #fafbf7; color: #25343a; border-radius: 8px; padding: 8px 7px; min-width: 0; }
+    .pname { font-size: 19px; font-weight: 700; white-space: nowrap; }
+    .price { font-size: 29px; line-height: 1.18; font-weight: 700; color: #ae322b; }
+    .note { font-size: 12px; color: #405354; }
+    #bottom { position: absolute; left: 68px; right: 68px; bottom: 29px; display: flex; justify-content: space-between; align-items: center; color: #cad6d4; font-size: 18px; }
+    #bottom strong { color: #f2cc61; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main id="root" data-composition-id="fx-022-sample" data-start="0" data-width="1280" data-height="720" data-fps="30" data-duration="4.8">
+    <div id="grid" data-layout-ignore></div>
+    <div class="topline demo-only"><span>MOTION SAMPLE / FX-022</span><span class="pill">产品名称 · 价位分区示范</span></div>
+    <h1 id="headline">按价位<em>选产品</em></h1>
+    <div id="subhead" class="demo-only">商品与判断条件同页；条件逐条出现，换档时整页切换</div>
+    <div class="rule" data-layout-ignore></div>
+    <div id="page-viewport"><div id="pages"></div></div>
+    <div id="bottom" class="demo-only"><span><strong>01</strong> 同档逐条补条件　　<strong>02</strong> 整页切到下一档</span><span>示意片段 · 实际时长按文案调整</span></div>
+  </main>
+  <script>
+    function productSvg(color, i) {
+      const rounded = i % 2 === 0 ? 14 : 24;
+      return '<svg class="product-visual" viewBox="0 0 110 126" aria-hidden="true">' +
+        '<ellipse cx="56" cy="115" rx="42" ry="6" fill="#0a1219" opacity=".28"/>' +
+        '<rect x="20" y="14" width="73" height="94" rx="' + rounded + '" fill="' + color + '" stroke="#e6eeea" stroke-width="2"/>' +
+        '<rect x="30" y="25" width="53" height="51" rx="8" fill="#edf2ed" opacity=".66"/>' +
+        '<path d="M37 88 H76" stroke="#eff3ee" stroke-width="4" stroke-linecap="round"/>' +
+        '<circle cx="56" cy="98" r="4" fill="#e9f0eb"/>' +
+        '</svg>';
+    }
+    const data = window.FX022_CONTENT;
+    function cards(items, offset) {
+      return '<div class="product-grid">' + items.map((p,i) =>
+        '<article class="product-card">' + productSvg(p[2],i+offset) +
+        '<div class="price-card"><div class="pname">' + p[0] + '</div><div class="price">' + p[1] + '</div><div class="note demo-only">示意价格</div></div></article>'
+      ).join('') + '</div>';
+    }
+    function info(tier, prefix, side) {
+      return '<div class="info-col ' + side + '"><h2 class="tier-title" id="' + prefix + '-title">' + tier.title + '</h2>' +
+        '<div class="tier-sub demo-only">' + tier.subtitle + '</div>' +
+        tier.conditions.map((c,i) => '<div class="condition ' + (i===tier.conditions.length-1?'last':'') + '" id="' + prefix + '-cond-' + (i+1) + '"><span class="label">' + c[0] + '</span><span class="value">' + c[1] + '</span></div>').join('') + '</div>';
+    }
+    document.getElementById('pages').innerHTML =
+      '<section class="tier" id="page-a">' + info(data.first,'a','') + '<div class="product-col" id="a-products">' + cards(data.first.products,0) + '</div></section>' +
+      '<section class="tier" id="page-b"><div class="product-col left" id="b-products">' + cards(data.second.products,4) + '</div>' + info(data.second,'b','right') + '</section>';
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('#headline',{opacity:0,y:16},{opacity:1,y:0,duration:.38,ease:'power3.out'},.02);
+    tl.fromTo('#subhead',{opacity:0,y:10},{opacity:1,y:0,duration:.30,ease:'power2.out'},.16);
+    tl.fromTo('#a-title',{opacity:0,y:15},{opacity:1,y:0,duration:.38,ease:'power3.out'},.12);
+    tl.fromTo('#a-products',{opacity:0,y:20},{opacity:1,y:0,duration:.43,ease:'power3.out'},.16);
+    tl.fromTo('#a-cond-1',{opacity:0,y:12},{opacity:1,y:0,duration:.28,ease:'power2.out'},.50);
+    tl.fromTo('#a-cond-2',{opacity:0,y:12},{opacity:1,y:0,duration:.28,ease:'power2.out'},1.08);
+    tl.fromTo('#a-cond-3',{opacity:0,y:12},{opacity:1,y:0,duration:.28,ease:'power2.out'},1.66);
+    tl.fromTo('#page-b',{opacity:0},{opacity:1,duration:.14,ease:'none'},2.24);
+    tl.to('#pages',{y:-414,duration:.57,ease:'power3.inOut'},2.28);
+    tl.to('#page-a',{opacity:0,duration:.12,ease:'none'},2.82);
+    tl.fromTo('#b-cond-1',{opacity:0,y:12},{opacity:1,y:0,duration:.28,ease:'power2.out'},3.17);
+    tl.fromTo('#b-cond-2',{opacity:0,y:12},{opacity:1,y:0,duration:.28,ease:'power2.out'},3.78);
+    window.__timelines['fx-022-sample']=tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "knowledge-video-motion-examples",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "postinstall": "node scripts/prepare-assets.mjs"
+  },
+  "dependencies": {
+    "gsap": "3.14.2"
+  }
+}

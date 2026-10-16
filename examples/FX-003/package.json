@@ -1,0 +1,9 @@
+{
+  "name": "fx-003-motion-sample",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.8.152 check",
+    "render": "npx --yes hyperframes@0.8.152 render"
+  }
+}

@@ -1,0 +1,6 @@
+.DS_Store
+**/.hyperframes/
+**/node_modules/
+examples/FX-*/assets/gsap.min.js
+**/renders/
+*.log

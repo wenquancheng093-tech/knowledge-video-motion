@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280,height=720">
+  <title>FX-023｜价位锚点切入三栏商品参数页</title>
+  <script src="assets/gsap.min.js"></script>
+  <script src="data/content.js"></script>
+  <style>
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:400}
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:700}
+
+
+
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;background:#111923}
+    #root{position:relative;width:100%;height:100%;overflow:hidden;color:#f8faf7;font-family:DemoSans,sans-serif;background:#111923}
+    #anchor{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 50%,#3b302b 0,#151b22 48%,#0e141b 100%)}
+    #anchor-text{font-size:89px;letter-spacing:2px;line-height:1.1;font-weight:700;color:#fff7e8;text-shadow:4px 5px 0 #a95935,0 0 40px rgba(236,168,93,.35);white-space:nowrap}
+    .spark{position:absolute;width:12px;height:12px;background:#f8d792;transform:rotate(45deg);box-shadow:0 0 28px #e8b765}
+    .spark.left{left:125px;top:352px}.spark.right{right:125px;top:352px}
+    #detail{position:absolute;inset:0;opacity:0;padding:50px 54px 54px;background:radial-gradient(circle at 70% 15%,#35424a,#202b34 47%,#17222b 100%)}
+    #detail-title{margin:0 0 24px;opacity:0;font-size:43px;line-height:1.2;font-weight:700;color:#f7f9f4}
+    #detail-title span{color:#e5c873}
+    #columns{display:grid;grid-template-columns:30% 34% 36%;gap:14px;height:537px}
+    .panel{opacity:0;border:1px solid #526873;border-radius:18px;background:linear-gradient(150deg,#33434c,#293841);box-shadow:0 14px 25px rgba(0,0,0,.2);padding:20px;min-width:0}
+    .panel-head{font-size:24px;font-weight:700;color:#e9cb78;margin-bottom:13px}
+    #product-art{height:265px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:radial-gradient(circle at 50% 60%,#557079,#2c3b45 70%)}
+    #device{width:185px;height:217px;border:9px solid #d1dadd;border-radius:20px;background:linear-gradient(140deg,#b7d2cc,#708f99);box-shadow:14px 18px 22px rgba(0,0,0,.35);position:relative}
+    #device:before{content:'';position:absolute;left:18px;right:18px;top:18px;height:132px;border-radius:8px;background:linear-gradient(130deg,#e4eeea,#a3bbc0)}
+    #device:after{content:'';position:absolute;left:77px;bottom:10px;width:17px;height:5px;border-radius:8px;background:#edf2ee}
+    #product-name{font-size:29px;font-weight:700;margin:14px 0 10px}
+    .price-line{display:flex;justify-content:space-between;font-size:19px;margin:7px 0;white-space:nowrap}
+    .price-line strong{font-size:24px;color:#ebd17f}
+    .price-line.final strong{color:#98d7a9}
+    .spec-row{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:93px;border-bottom:1px solid #59717b;font-size:21px}
+    .spec-row:last-child{border-bottom:0}
+    .spec-row span{color:#c7d7d6}.spec-row strong{font-size:23px}
+    .judgement{border-radius:13px;padding:20px 22px;min-height:225px;margin-bottom:14px;background:#3a4b51}
+    .judgement.good{border-left:5px solid #a6d69b}.judgement.caution{border-left:5px solid #e6c477}
+    .judgement h2{margin:0 0 21px;font-size:27px;line-height:1.2}
+    .judgement.good h2{color:#bde9ad}.judgement.caution h2{color:#f1d688}
+    .judgement p{margin:0;font-size:21px;line-height:1.5}
+  </style>
+</head>
+<body>
+  <main id="root" data-composition-id="fx-023-sample" data-start="0" data-width="1280" data-height="720" data-fps="30" data-duration="4.8">
+    <section id="anchor"><div class="spark left" data-layout-ignore></div><div id="anchor-text"></div><div class="spark right" data-layout-ignore></div></section>
+    <section id="detail">
+      <h1 id="detail-title"><span id="detail-budget"></span> · <b id="detail-name"></b></h1>
+      <div id="columns">
+        <div class="panel"><div id="product-art"><div id="device" data-layout-ignore></div></div><div id="product-name"></div><div class="price-line"><span>参考价</span><strong id="ref-price"></strong></div><div class="price-line final"><span>到手价</span><strong id="final-price"></strong></div></div>
+        <div class="panel"><div class="panel-head">关键参数</div><div id="specs"></div></div>
+        <div class="panel"><div class="judgement good"><h2>优势</h2><p id="strength"></p></div><div class="judgement caution"><h2>不足</h2><p id="tradeoff"></p></div></div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const d=window.FX023_CONTENT;
+    document.getElementById('anchor-text').textContent=d.budget;
+    document.getElementById('detail-budget').textContent=d.budget;
+    document.getElementById('detail-name').textContent=d.name;
+    document.getElementById('product-name').textContent=d.name;
+    document.getElementById('ref-price').textContent=d.referencePrice;
+    document.getElementById('final-price').textContent=d.finalPrice;
+    document.getElementById('strength').textContent=d.strength;
+    document.getElementById('tradeoff').textContent=d.tradeoff;
+    document.getElementById('specs').innerHTML=d.parameters.map(p=>'<div class="spec-row"><span>'+p[0]+'</span><strong>'+p[1]+'</strong></div>').join('');
+    const tl=gsap.timeline({paused:true});
+    tl.fromTo('#anchor-text',{opacity:0,x:-340,scale:.78},{opacity:1,x:0,scale:1,duration:.64,ease:'power3.out'},.03);
+    tl.fromTo('.spark',{opacity:0,scale:.3},{opacity:1,scale:1,duration:.28,stagger:.1,ease:'back.out(2)'},.54);
+    tl.to('#anchor',{opacity:0,duration:.24,ease:'power2.inOut'},1.33);
+    tl.fromTo('#detail',{opacity:0,y:24,scale:.985},{opacity:1,y:0,scale:1,duration:.42,ease:'power3.out',immediateRender:false},1.46);
+    tl.fromTo('#detail-title',{opacity:0,y:12},{opacity:1,y:0,duration:.33,ease:'power2.out',immediateRender:false},1.62);
+    tl.fromTo('.panel',{opacity:0,y:18},{opacity:1,y:0,duration:.38,stagger:.07,ease:'power2.out',immediateRender:false},1.68);
+    window.__timelines['fx-023-sample']=tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>

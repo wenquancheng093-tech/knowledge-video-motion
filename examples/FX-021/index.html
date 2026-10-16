@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280,height=720">
+  <title>FX-021｜商品清单整轨横移</title>
+  <script src="assets/gsap.min.js"></script>
+  <script src="data/products.js"></script>
+  <style>
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:400}
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:700}
+
+    .demo-only { display: none !important; }
+
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; background: #111820; }
+    #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: #f7f8f6; font-family:DemoSans,sans-serif; background: radial-gradient(circle at 80% 14%, #26343f 0, transparent 36%), #111820; }
+    #grid { position: absolute; inset: 0; opacity: .33; background-image: radial-gradient(#72909a 1px, transparent 1px); background-size: 28px 28px; }
+    #scene { position: absolute; inset: 0; overflow: hidden; }
+    .topline { position: absolute; left: 68px; right: 68px; top: 42px; display: flex; justify-content: space-between; align-items: center; color: #d1d8d9; font-size: 15px; letter-spacing: 2px; }
+    .tiny { border: 1px solid #8198a0; border-radius: 99px; padding: 7px 14px; letter-spacing: 1px; }
+    #headline { position: absolute; left: 66px; top: 80px; margin: 0; font-size: 61px; line-height: 1.22; font-weight: 700; letter-spacing: 1px; }
+    #headline em { font-style: normal; color: #f2cf63; }
+    #subhead { position: absolute; left: 68px; top: 169px; color: #c2d1d1; font-size: 21px; letter-spacing: .5px; }
+    .accent-line { position: absolute; left: 68px; top: 219px; width: 1144px; height: 1px; background: linear-gradient(90deg,#c6a849,#617986 70%,transparent); }
+    #viewport { position: absolute; left: 56px; top: 252px; width: 1168px; height: 383px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg,transparent,black 4%,black 96%,transparent); mask-image: linear-gradient(90deg,transparent,black 4%,black 96%,transparent); }
+    #track { display: grid; grid-template-rows: repeat(2, 174px); grid-auto-flow: column; grid-auto-columns: 241px; column-gap: 10px; row-gap: 17px; width: max-content; height: 365px; will-change: transform; }
+    .product { position: relative; width: 241px; height: 174px; border: 1px solid #53636a; border-radius: 15px; background: linear-gradient(144deg,rgba(65,84,92,.62),rgba(31,42,51,.68)); overflow: hidden; box-shadow: inset 0 1px 0 rgba(255,255,255,.14),0 12px 24px rgba(0,0,0,.16); }
+    .product .num { position: absolute; top: 10px; left: 13px; color: #aab9b9; font-size: 12px; letter-spacing: 1px; }
+    .chair { position: absolute; width: 139px; height: 155px; left: 0; top: 16px; }
+    .info { position: absolute; left: 119px; right: 9px; top: 78px; background: #f6f6f2; border-radius: 9px; padding: 9px 8px 7px; color: #303840; box-shadow: 0 6px 14px rgba(0,0,0,.22); }
+    .info .name { font-size: 13px; font-weight: 700; line-height: 1.25; height: 20px; white-space: nowrap; }
+    .info .price { font-size: 24px; line-height: 1.12; font-weight: 700; color: #aa3029; }
+    .info .sample { display: block; font-size: 10px; color: #4b5658; line-height: 1.15; }
+    .footer { position: absolute; left: 68px; right: 68px; bottom: 31px; display: flex; align-items: center; justify-content: space-between; color: #c8d3d2; font-size: 18px; }
+    #progress { width: 176px; height: 4px; background: #4e6166; border-radius: 99px; overflow: hidden; }
+    #progress-fill { width: 100%; height: 100%; background: #f2cf63; transform-origin: left center; }
+  </style>
+</head>
+<body>
+  <main id="root" data-composition-id="fx-021-sample" data-start="0" data-width="1280" data-height="720" data-fps="30" data-duration="4.8">
+    <section id="scene">
+      <div id="grid" data-layout-ignore></div>
+      <div class="topline demo-only"><span>MOTION SAMPLE / FX-021</span><span class="tiny">商品清单 · 横屏示范</span></div>
+      <h1 id="headline">产品名称<em>清单</em></h1>
+      <div id="subhead" class="demo-only">每件商品和对应价签保持同组，整条清单横向滑动</div>
+      <div class="accent-line" data-layout-ignore></div>
+      <div id="viewport"><div id="track"></div></div>
+      <div class="footer demo-only"><span>重点看：顶部标题固定，商品卡与价格同步移动</span><div id="progress"><div id="progress-fill"></div></div></div>
+    </section>
+  </main>
+  <script>
+    function chairSvg(p, i) {
+      const high = i % 3 === 0;
+      const head = high ? '<rect x="61" y="9" width="58" height="18" rx="9" fill="' + p.color + '" stroke="#e4e8e3" stroke-width="2"/>' : '';
+      return '<svg class="chair" viewBox="0 0 180 210" aria-hidden="true">' +
+        '<ellipse cx="89" cy="197" rx="69" ry="9" fill="#07121a" opacity=".28"/>' +
+        '<path d="M88 154 L88 184 M49 188 L126 188 M54 188 L39 196 M119 188 L135 196" stroke="#c4ced0" stroke-width="7" stroke-linecap="round"/>' +
+        '<circle cx="38" cy="198" r="5" fill="#d7dfdf"/><circle cx="136" cy="198" r="5" fill="#d7dfdf"/>' +
+        head +
+        '<path d="M52 39 Q50 28 66 26 L115 26 Q130 28 128 43 L122 120 Q120 133 107 137 L72 137 Q56 135 55 120 Z" fill="' + p.color + '" stroke="#d3ddda" stroke-width="3"/>' +
+        '<path d="M68 40 Q90 33 114 40 L110 113 Q89 123 71 111 Z" fill="' + p.accent + '" opacity=".9"/>' +
+        '<path d="M56 132 Q90 121 124 132 L119 153 Q89 160 60 153 Z" fill="' + p.color + '" stroke="#dae1df" stroke-width="3"/>' +
+        '<path d="M60 120 L35 125 L34 145 M120 120 L144 125 L145 145" fill="none" stroke="#c8d5d7" stroke-width="7" stroke-linecap="round"/>' +
+        '<path d="M72 153 L78 166 L108 166 L114 153" fill="#6e848b"/>' +
+        '</svg>';
+    }
+    const track = document.getElementById('track');
+    track.innerHTML = window.SAMPLE_PRODUCTS.map((p, i) =>
+      '<article class="product"><div class="num">NO. ' + String(i + 1).padStart(2, '0') + '</div>' + chairSvg(p, i) +
+      '<div class="info"><div class="name">' + p.name + '</div><div class="price">' + p.price + '</div><span class="sample demo-only">示意价格</span></div></article>'
+    ).join('');
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo('#headline', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .4, ease: 'power3.out' }, .06);
+    tl.fromTo('#subhead', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .35, ease: 'power2.out' }, .20);
+    tl.fromTo('#viewport', { opacity: 0 }, { opacity: 1, duration: .24, ease: 'power2.out' }, .02);
+    tl.fromTo('#track', { x: 95 }, { x: 0, duration: .50, ease: 'power3.out' }, .10);
+    tl.to('#track', { x: -800, duration: 3.60, ease: 'none' }, .70);
+    tl.fromTo('#progress-fill', { scaleX: .08 }, { scaleX: 1, duration: 3.60, ease: 'none' }, .70);
+    window.__timelines['fx-021-sample'] = tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280,height=720">
+  <title>FX-020｜配置表纵深铺展</title>
+  <script src="assets/gsap.min.js"></script>
+  <script src="data/content.js"></script>
+  <style>
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:400}
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:700}
+
+
+
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;background:#101921}
+    #root{position:relative;width:100%;height:100%;overflow:hidden;color:#f8faf7;font-family:DemoSans,sans-serif;background:radial-gradient(circle at 50% 70%,#244252 0,#13232e 44%,#0c161e 100%)}
+    #grid{position:absolute;inset:0;opacity:.23;background-image:linear-gradient(#4e7d8a 1px,transparent 1px),linear-gradient(90deg,#4e7d8a 1px,transparent 1px);background-size:58px 58px;transform:perspective(530px) rotateX(62deg) scale(1.6);transform-origin:center 83%}
+    #glow{position:absolute;width:620px;height:280px;left:330px;top:400px;border-radius:50%;background:#2b7587;filter:blur(90px);opacity:.16}
+    #title{position:absolute;left:68px;top:66px;margin:0;font-size:58px;line-height:1.2;font-weight:700;letter-spacing:2px}
+    #title span{color:#edce7a}
+    #stage{position:absolute;inset:0;perspective:1200px;perspective-origin:50% 55%;transform-style:preserve-3d}
+    .config-card{position:absolute;left:490px;top:214px;width:300px;height:385px;opacity:0;border:1px solid #77a8ae;border-radius:18px;padding:0 22px 21px;background:linear-gradient(160deg,#edf5f2 0,#dce9e7 100%);color:#1a3038;box-shadow:0 28px 44px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.8);transform-style:preserve-3d;will-change:transform,opacity}
+    .card-top{height:12px;margin:0 -22px 19px;border-radius:17px 17px 0 0;background:var(--tone)}
+    .card-tag{display:inline-block;background:#edce7a;color:#1b3038;border-radius:99px;padding:5px 12px;font-size:15px;font-weight:700}
+    .card-name{margin:17px 0 0;font-size:31px;font-weight:700;line-height:1.2}
+    .card-price{margin:4px 0 15px;font-size:28px;font-weight:700;color:#802b24}
+    .card-row{border-top:1px solid #b8c9c8;display:flex;justify-content:space-between;gap:8px;padding:10px 0;font-size:17px;white-space:nowrap}
+    .card-row b{font-weight:700}
+    #focus{position:absolute;left:508px;top:619px;width:264px;height:4px;border-radius:9px;background:#edce7a;box-shadow:0 0 16px #edce7a;opacity:0}
+  </style>
+</head>
+<body>
+  <main id="root" data-composition-id="fx-020-sample" data-start="0" data-width="1280" data-height="720" data-fps="30" data-duration="4.6">
+    <div id="grid" data-layout-ignore></div><div id="glow" data-layout-ignore></div>
+    <h1 id="title">产品<span>配置方案</span></h1>
+    <section id="stage"></section>
+    <div id="focus" data-layout-ignore></div>
+  </main>
+  <script>
+    const d=window.FX020_CONTENT;
+    document.getElementById('title').innerHTML=d.title.replace('配置方案','<span>配置方案</span>');
+    document.getElementById('stage').innerHTML=d.cards.map((c,i)=>
+      '<article class="config-card" id="card-'+i+'" style="--tone:'+c.color+';z-index:'+([1,2,5,2,1][i])+'">'+
+      '<div class="card-top"></div><div class="card-tag">'+c.tag+'</div><h2 class="card-name">'+c.name+'</h2><div class="card-price">'+c.price+'</div>'+
+      (i===2?c.rows.map(r=>'<div class="card-row"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>').join(''):'')+'</article>'
+    ).join('');
+    const end=[
+      {x:-520,y:38,rotationY:20,rotation:-4,scale:.55},
+      {x:-300,y:12,rotationY:11,rotation:-2,scale:.73},
+      {x:0,y:-12,rotationY:0,rotation:0,scale:1.06},
+      {x:300,y:12,rotationY:-11,rotation:2,scale:.73},
+      {x:520,y:38,rotationY:-20,rotation:4,scale:.55}
+    ];
+    const tl=gsap.timeline({paused:true});
+    tl.fromTo('#title',{opacity:0,y:18},{opacity:1,y:0,duration:.42,ease:'power3.out'},.02);
+    d.cards.forEach((_,i)=>{
+      const el='#card-'+i;
+      tl.fromTo(el,{opacity:0,x:0,y:88,scale:.64,rotationY:0,rotation:0},{opacity:1,x:0,y:0,scale:.81,duration:.34,ease:'power2.out',immediateRender:false},.10+i*.06);
+      tl.to(el,{...end[i],duration:.92,ease:'power3.inOut'},.57);
+    });
+    tl.fromTo('#focus',{opacity:0,scaleX:.15},{opacity:1,scaleX:1,duration:.4,ease:'power2.out'},1.26);
+    tl.to('#card-2',{scale:1.10,y:-25,duration:.52,ease:'power2.inOut'},2.56);
+    window.__timelines['fx-020-sample']=tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>

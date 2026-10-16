@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-16",
+  "recipes": [
+    {
+      "id": "FX-001",
+      "name": "短句分层强调",
+      "category": "文字与数字",
+      "tags": [
+        "口播字幕",
+        "关键词",
+        "两行"
+      ],
+      "principle": "短句的主次与逐步揭示",
+      "recipe": "references/recipes/FX-001.md",
+      "preview": "demos/FX-001-preview.mp4",
+      "editable_example": "examples/FX-001/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-002",
+      "name": "大数字与解释分栏",
+      "category": "文字与数字",
+      "tags": [
+        "数字",
+        "百分比",
+        "参数展示"
+      ],
+      "principle": "数字先被识别，解释随后补足",
+      "recipe": "references/recipes/FX-002.md",
+      "preview": "demos/FX-002-preview.mp4",
+      "editable_example": "examples/FX-002/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-003",
+      "name": "大字锚点与参数注释",
+      "category": "文字与数字",
+      "tags": [
+        "数字",
+        "不对称排版",
+        "大字"
+      ],
+      "principle": "稳定的大字锚点串联数字与注释",
+      "recipe": "references/recipes/FX-003.md",
+      "preview": "demos/FX-003-preview.mp4",
+      "editable_example": "examples/FX-003/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-004",
+      "name": "提问与答案叠层",
+      "category": "文字与数字",
+      "tags": [
+        "提问",
+        "标题",
+        "叠层"
+      ],
+      "principle": "问题引导注意，重点标题给出回答",
+      "recipe": "references/recipes/FX-004.md",
+      "preview": "demos/FX-004-preview.mp4",
+      "editable_example": "examples/FX-004/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": "A 变体：提问与背景问号。其他标题叠层方式尚无独立示范。"
+    },
+    {
+      "id": "FX-005",
+      "name": "透视短标题",
+      "category": "文字与数字",
+      "tags": [
+        "3D感",
+        "透视",
+        "投影",
+        "短标题"
+      ],
+      "principle": "透视与遮挡营造短标题的空间层次",
+      "recipe": "references/recipes/FX-005.md",
+      "preview": "demos/FX-005-preview.mp4",
+      "editable_example": "examples/FX-005/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": "只示范第 5 种双行透视变体；另外 4 种尚无独立示范。"
+    },
+    {
+      "id": "FX-006",
+      "name": "递进文字逐项强调",
+      "category": "文字与数字",
+      "tags": [
+        "不透明度",
+        "递进",
+        "三行",
+        "列表"
+      ],
+      "principle": "当前重点突出，已讲内容保留上下文",
+      "recipe": "references/recipes/FX-006.md",
+      "preview": "demos/FX-006-preview.mp4",
+      "editable_example": "examples/FX-006/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": "只示范第 3 种三行旧字变淡变体；另外 2 种尚无独立示范。"
+    },
+    {
+      "id": "FX-007",
+      "name": "双向短句合流",
+      "category": "文字与数字",
+      "tags": [
+        "双向入场",
+        "两行",
+        "颜色关键帧"
+      ],
+      "principle": "两个相关短句分开出现后建立一组关系",
+      "recipe": "references/recipes/FX-007.md",
+      "preview": "demos/FX-007-preview.mp4",
+      "editable_example": "examples/FX-007/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-008",
+      "name": "字体层级与语义断句",
+      "category": "文字与数字",
+      "tags": [
+        "字体搭配",
+        "颜色层级",
+        "口播",
+        "长句拆分"
+      ],
+      "principle": "字体、颜色和断句服务于信息层级",
+      "recipe": "references/recipes/FX-008.md",
+      "preview": "demos/FX-008-preview.mp4",
+      "editable_example": "examples/FX-008/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-009",
+      "name": "字幕入场与强调组合",
+      "category": "文字与数字",
+      "tags": [
+        "字幕动画",
+        "组合菜单",
+        "短句",
+        "强调"
+      ],
+      "principle": "按语义选择入场和强调，不按效果数量堆叠",
+      "recipe": "references/recipes/FX-009.md",
+      "preview": "demos/FX-009-preview.mp4",
+      "editable_example": "examples/FX-009/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": "十组字幕菜单中只示范第 1 组“向下溶解＋折叠”；另外 9 组尚无独立示范。"
+    },
+    {
+      "id": "FX-010",
+      "name": "并列卡片逐项强调",
+      "category": "并列卡片",
+      "tags": [
+        "并列句",
+        "卡片",
+        "步骤",
+        "信息密度",
+        "灰度切换"
+      ],
+      "principle": "并列信息常驻，当前项目逐条点亮",
+      "recipe": "references/recipes/FX-010.md",
+      "preview": "demos/FX-010-preview.mp4",
+      "editable_example": "examples/FX-010/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": "只示范 C 变体“三张卡从叠放到横向展开”；原版逐张点亮和人物关键词卡尚无独立示范。"
+    },
+    {
+      "id": "FX-011",
+      "name": "主信息框与辅助视窗",
+      "category": "画面布局",
+      "tags": [
+        "横屏素材",
+        "圆角卡片",
+        "画中画"
+      ],
+      "principle": "主要证据居中，补充主体退到次级",
+      "recipe": "references/recipes/FX-011.md",
+      "preview": "demos/FX-011-preview.mp4",
+      "editable_example": "examples/FX-011/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-012",
+      "name": "主画面与局部特写窗",
+      "category": "画面布局",
+      "tags": [
+        "圆形画中画",
+        "素材主导",
+        "阅读演示"
+      ],
+      "principle": "主画面解释行为，小窗补充另一视角",
+      "recipe": "references/recipes/FX-012.md",
+      "preview": "demos/FX-012-preview.mp4",
+      "editable_example": "examples/FX-012/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-013",
+      "name": "主体与信息台",
+      "category": "画面布局",
+      "tags": [
+        "人物主导",
+        "下三分之一",
+        "关键词标题"
+      ],
+      "principle": "主体吸引注意，信息区承载解释",
+      "recipe": "references/recipes/FX-013.md",
+      "preview": "demos/FX-013-preview.mp4",
+      "editable_example": "examples/FX-013/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-014",
+      "name": "三分区素材组合",
+      "category": "画面布局",
+      "tags": [
+        "三分屏",
+        "素材组合",
+        "跨区人物"
+      ],
+      "principle": "多个证据分区并列，跨区元素建立关联",
+      "recipe": "references/recipes/FX-014.md",
+      "preview": "demos/FX-014-preview.mp4",
+      "editable_example": "examples/FX-014/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-015",
+      "name": "双区斜线分屏",
+      "category": "画面布局",
+      "tags": [
+        "斜线分屏",
+        "游戏演示",
+        "上下分区"
+      ],
+      "principle": "两类内容明确分区，形成解释或对照",
+      "recipe": "references/recipes/FX-015.md",
+      "preview": "demos/FX-015-preview.mp4",
+      "editable_example": "examples/FX-015/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-016",
+      "name": "留白与水墨主题图",
+      "category": "画面布局",
+      "tags": [
+        "水墨",
+        "国风",
+        "留白",
+        "人物蒙版"
+      ],
+      "principle": "留白、主题图与少量装饰建立统一风格",
+      "recipe": "references/recipes/FX-016.md",
+      "preview": "demos/FX-016-preview.mp4",
+      "editable_example": "examples/FX-016/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-017",
+      "name": "场景框与主体出框",
+      "category": "画面布局",
+      "tags": [
+        "横转竖",
+        "人物出框",
+        "纯色留白"
+      ],
+      "principle": "规则画框与越界主体形成前后层次",
+      "recipe": "references/recipes/FX-017.md",
+      "preview": "demos/FX-017-preview.mp4",
+      "editable_example": "examples/FX-017/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-018",
+      "name": "标签滑块与素材联动",
+      "category": "状态联动",
+      "tags": [
+        "并列句",
+        "滑块",
+        "状态联动",
+        "叠层素材"
+      ],
+      "principle": "一个选中状态联动标题、滑块和对应素材",
+      "recipe": "references/recipes/FX-018.md",
+      "preview": "demos/FX-018-preview.mp4",
+      "editable_example": "examples/FX-018/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-019",
+      "name": "清单逐项聚焦",
+      "category": "状态联动",
+      "tags": [
+        "清单",
+        "图表效果",
+        "选中框",
+        "局部放大",
+        "逐行揭示"
+      ],
+      "principle": "保持清单结构，以移动焦点和文字揭示控制阅读",
+      "recipe": "references/recipes/FX-019.md",
+      "preview": "demos/FX-019-preview.mp4",
+      "editable_example": "examples/FX-019/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-020",
+      "name": "配置表纵深铺展",
+      "category": "信息卡片",
+      "tags": [
+        "方案",
+        "参数表",
+        "纵深",
+        "卡片展开"
+      ],
+      "principle": "多方案配置表从重叠到扇形，当前方案在前",
+      "recipe": "references/recipes/FX-020.md",
+      "preview": "demos/FX-020-preview.mp4",
+      "editable_example": "examples/FX-020/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-021",
+      "name": "商品清单整轨横移",
+      "category": "商品清单",
+      "tags": [
+        "商品",
+        "价签",
+        "清单",
+        "横向滑动"
+      ],
+      "principle": "商品与价签同组随轨道移动，标题固定",
+      "recipe": "references/recipes/FX-021.md",
+      "preview": "demos/FX-021-preview.mp4",
+      "editable_example": "examples/FX-021/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-022",
+      "name": "价位分区与条件逐条累加",
+      "category": "商品对比",
+      "tags": [
+        "预算",
+        "分价位",
+        "左右分区",
+        "条件揭示",
+        "整页换章"
+      ],
+      "principle": "同档条件累加保留，换档时商品与判断一起换组",
+      "recipe": "references/recipes/FX-022.md",
+      "preview": "demos/FX-022-preview.mp4",
+      "editable_example": "examples/FX-022/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    },
+    {
+      "id": "FX-023",
+      "name": "价位锚点切入三栏商品参数页",
+      "category": "商品详情",
+      "tags": [
+        "价位",
+        "参数",
+        "优缺点",
+        "三栏"
+      ],
+      "principle": "先给预算范围，再切入同商品的价格、规格和取舍",
+      "recipe": "references/recipes/FX-023.md",
+      "preview": "demos/FX-023-preview.mp4",
+      "editable_example": "examples/FX-023/index.html",
+      "demo_aspect_ratio": "16:9",
+      "demo_status": "horizontal-single-example",
+      "variant_note": null
+    }
+  ]
+}

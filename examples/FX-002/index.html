@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=1280,height=720"><title>FX-002 大数字加解释</title>
+<script src="assets/gsap.min.js"></script><script src="data/content.js"></script>
+<style>
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:400}
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:700}
+
+
+
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#101820}
+#root{position:relative;width:1280px;height:720px;overflow:hidden;background:radial-gradient(circle at 83% 19%,#243342 0,transparent 35%),#101820;color:#f5f6f3;font-family:DemoSans,sans-serif}
+.grid{position:absolute;inset:0;background-image:radial-gradient(#62808a 1px,transparent 1px);background-size:30px 30px;opacity:.22}
+.glow{position:absolute;width:590px;height:590px;right:-210px;top:-200px;border-radius:50%;background:#d24d83;filter:blur(180px);opacity:.12}
+.content{position:absolute;inset:0}
+.gold{color:#f0cb69}.pink{color:#f05d9a}.muted{color:#a9bdc2}
+.rule{position:absolute;left:96px;right:96px;bottom:88px;height:1px;background:linear-gradient(90deg,#efc869,#58717b,transparent)}
+
+  .stage{position:absolute;left:125px;right:105px;top:165px;height:400px;display:grid;grid-template-columns:45% 55%;align-items:center}
+  #numwrap{height:220px;position:relative;display:flex;align-items:center;justify-content:center;border-right:1px solid #54707a}
+  #rough,#value{position:absolute;font-size:162px;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-8px;color:#f05d9a;text-shadow:9px 10px 0 #101015}
+  #right{padding-left:69px}
+  #label{font-size:34px;color:#f0cb69;letter-spacing:4px;margin-bottom:18px}
+  #detail{font-size:61px;line-height:1.26;font-weight:700;max-width:540px;white-space:pre-line}
+  </style></head>
+<body><main id="root" data-composition-id="fx-002-sample" data-start="0" data-width="1280" data-height="720" data-fps="30" data-duration="4.6">
+<div class="grid" data-layout-ignore></div><div class="glow" data-layout-ignore></div><div class="content"><div class="stage"><div id="numwrap"><div id="rough"></div><div id="value"></div></div><div id="right"><div id="label"></div><div id="detail"></div></div></div></div><div class="rule" data-layout-ignore></div>
+</main><script>
+  const d=window.FX_CONTENT;for(const k of ['rough','value','label','detail'])document.getElementById(k).textContent=d[k];
+  const tl=gsap.timeline({paused:true});
+  tl.fromTo('#rough',{opacity:0,y:-50,filter:'blur(14px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.38,ease:'power3.out'},.15);
+  tl.to('#rough',{opacity:0,y:28,filter:'blur(10px)',duration:.22},.72);
+  tl.fromTo('#value',{opacity:0,y:-35,filter:'blur(10px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.4,ease:'power3.out'},.76);
+  tl.fromTo('#label',{opacity:0,x:-30},{opacity:1,x:0,duration:.38,ease:'power3.out'},1.32);
+  tl.fromTo('#detail',{opacity:0,x:-55,clipPath:'inset(0 100% 0 0)'},{opacity:1,x:0,clipPath:'inset(0 0% 0 0)',duration:.75,ease:'power3.out'},1.59);
+
+window.__timelines=window.__timelines||{};
+window.__timelines['fx-002-sample']=tl;tl.seek(0);
+</script></body></html>

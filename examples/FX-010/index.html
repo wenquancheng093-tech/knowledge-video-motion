@@ -1,0 +1,17 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=1280,height=720"><title>FX-010｜三张商品卡从同源叠放向右展开｜C变体</title><script src="assets/gsap.min.js"></script><script src="data/content.js"></script><style>
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:400}
+@font-face{font-family:DemoSans;src:local("Noto Sans SC"),local("PingFang SC"),local("Microsoft YaHei");font-weight:700}
+
+
+
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#0d1720}
+#root{position:relative;width:100%;height:100%;overflow:hidden;color:#f6f7f4;font-family:DemoSans,sans-serif;background:radial-gradient(circle at 79% 13%,#29414a 0,transparent 42%),#0d1720}
+.grid{position:absolute;inset:0;background-image:radial-gradient(#55727b 1px,transparent 1px);background-size:26px 26px;opacity:.24}
+.light{color:#f1cb66}.hot{color:#fb7282}
+
+#stage{position:absolute;left:88px;right:88px;top:105px;bottom:105px;overflow:hidden}article.card{position:absolute;top:48px;width:300px;height:408px;border-radius:22px;background:#f8f9f5;color:#29343a;box-shadow:0 24px 44px #0006;border:1px solid #e1e6e3;padding:0 24px 27px;overflow:hidden}.ribbon{height:56px;margin:0 -24px 20px;background:#d7585d;color:#fff;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center}.visual{height:218px;border-radius:17px;display:flex;align-items:center;justify-content:center}.shape{width:112px;height:165px;border:6px solid #f9fbf6;border-radius:28px;box-shadow:0 14px 23px #1114}.meta{margin-top:17px;font-size:31px;font-weight:700}.detail{font-size:24px;margin-top:4px;color:#86292f}#c0{left:54px;z-index:3}#c1{left:54px;z-index:2}#c2{left:54px;z-index:1}</style></head><body><main id="root" data-composition-id="fx-010-sample" data-start="0" data-width="1280" data-height="720" data-fps="30" data-duration="4.5"><div class="grid" data-layout-ignore></div><section id="stage"></section></main><script>const d=window.MOTION_CONTENT;const tl=gsap.timeline({paused:true});const a=document.getElementById('a'),b=document.getElementById('b'),base=document.getElementById('base'),accent=document.getElementById('accent'),title=document.getElementById('title'),label=document.getElementById('label'),detail=document.getElementById('detail'),line=document.getElementById('line');document.getElementById('stage').innerHTML=d.cards.map((c,i)=>'<article class="card" data-layout-allow-overlap data-layout-allow-occlusion id="c'+i+'"><div class="ribbon" data-layout-allow-overlap data-layout-allow-occlusion>'+c.title+'</div><div class="visual" style="background:'+c.color+'55"><div class="shape" style="background:'+c.color+'"></div></div><div class="meta" data-layout-allow-overlap data-layout-allow-occlusion>'+c.title+'</div><div class="detail" data-layout-allow-overlap data-layout-allow-occlusion>'+c.line+'</div></article>').join('');
+tl.fromTo('#c0',{scale:.86},{scale:1,duration:.48,ease:'power3.out'},.16);
+tl.fromTo('#c1',{opacity:0},{opacity:1,duration:.12},.76);
+tl.to('#c1',{x:341,duration:.62,ease:'power3.inOut'},.86);
+tl.fromTo('#c2',{opacity:0},{opacity:1,duration:.12},1.56);
+tl.to('#c2',{x:682,duration:.68,ease:'power3.inOut'},1.68);window.__timelines['fx-010-sample']=tl;tl.seek(0);</script></body></html>
